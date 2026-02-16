@@ -100,6 +100,9 @@ export default function FallingMeteors() {
                 "/condomItems/condom3.png",
             ];
 
+            // Shuffle images for this batch to ensure no duplicates if count <= images.length
+            const shuffled = [...images].sort(() => 0.5 - Math.random());
+
             for (let i = 0; i < count; i++) {
                 let startX = 0;
                 let drift = 0;
@@ -130,7 +133,7 @@ export default function FallingMeteors() {
                     drift: drift,
                     delay: Math.random() * 5, // 0-5s delay
                     duration: Math.random() * 4 + 4, // 4-8s duration
-                    imageSrc: images[Math.floor(Math.random() * images.length)],
+                    imageSrc: shuffled[i],
                     rotation: Math.random() * 360,
                     scale: Math.random() * 0.4 + 0.6,
                 });
