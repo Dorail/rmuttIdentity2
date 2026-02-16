@@ -4,6 +4,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import GlobalAssessment from "@/components/layout/GlobalAssessment";
+import FallingMeteors from "@/components/ui/FallingMeteors";
 
 export const metadata: Metadata = {
   title: "SafeSexSafeMind - การให้ความรู้เรื่องการตั้งครรภ์ไม่พร้อมสำหรับนักศึกษา",
@@ -53,6 +54,7 @@ export default function RootLayout({
 
         {children}
         <GlobalAssessment />
+        <FallingMeteors />
         <Footer />
       </body>
     </html>
