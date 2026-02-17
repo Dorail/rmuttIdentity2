@@ -92,16 +92,17 @@ export default function FallingMeteors() {
             }
 
             const now = Date.now();
-            if (now - lastSpawnTime > 2500) { // Check every 2.5 seconds
+            if (now - lastSpawnTime > 4000) { // Check every 4 seconds (was 2.5s)
                 lastSpawnTime = now;
 
-                // 75% chance to skip spawning
-                if (Math.random() > 0.75) {
+                // 85% chance to skip spawning (was 75%)
+                // This makes it much rarer: ~15% chance every 4s = avg 1 spawn every ~26 seconds
+                if (Math.random() > 0.85) {
                     animationFrameId = requestAnimationFrame(loop);
                     return;
                 }
 
-                const count = Math.floor(Math.random() * 2) + 1; // 1-2 meteors
+                const count = Math.random() > 0.9 ? 2 : 1; // Mostly 1 meteor, rarely 2
                 const newMeteors: Meteor[] = [];
 
                 const images = [
