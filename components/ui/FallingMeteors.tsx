@@ -92,12 +92,11 @@ export default function FallingMeteors() {
             }
 
             const now = Date.now();
-            if (now - lastSpawnTime > 4000) { // Check every 4 seconds (was 2.5s)
+            if (now - lastSpawnTime > 10000) { // Check every 10 seconds
                 lastSpawnTime = now;
 
-                // 85% chance to skip spawning (was 75%)
-                // This makes it much rarer: ~15% chance every 4s = avg 1 spawn every ~26 seconds
-                if (Math.random() > 0.85) {
+                // 40% chance to skip spawning
+                if (Math.random() > 0.40) {
                     animationFrameId = requestAnimationFrame(loop);
                     return;
                 }
