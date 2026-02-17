@@ -64,7 +64,7 @@ export default function Footer() {
                         whileHover={{ scale: 1.02 }}
                     >
                         <span className="text-sm font-medium bg-gradient-to-r from-rose-500 to-orange-500 bg-clip-text text-transparent flex items-center gap-2">
-                            Made with <Heart className="w-4 h-4 text-rose-500 fill-current animate-heartbeat" /> Rmutt Identity by Sec 1
+                            Made with <Heart className="w-4 h-4 text-rose-500 fill-current animate-heartbeat" /> Rmutt Identity By Sec 1
                         </span>
                     </motion.div>
 

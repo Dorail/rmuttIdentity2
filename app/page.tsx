@@ -5,9 +5,11 @@ import Reveal from "@/components/ui/Reveal";
 import EducationContent from "@/components/content/EducationContent";
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
 import StaggerText from "@/components/ui/StaggerText";
+import { useAssessment } from "../components/providers/AssessmentProvider";
 
 
 export default function Home() {
+  const { openAssessment } = useAssessment();
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
@@ -63,12 +65,12 @@ export default function Home() {
               transition={{ delay: 0.4, duration: 0.5 }}
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
-              <a
-                href="#assessment"
+              <button
+                onClick={openAssessment}
                 className="px-8 py-4 rounded-full bg-gradient-to-r from-zinc-900 to-zinc-700 dark:from-white dark:to-zinc-200 text-white dark:text-black font-bold text-lg hover:scale-105 transition-transform shadow-xl hover:shadow-2xl shadow-zinc-900/20 dark:shadow-white/10"
               >
                 เช็คความเสี่ยงทันที
-              </a>
+              </button>
               <a
                 href="#education"
                 className="px-8 py-4 rounded-full bg-white/50 dark:bg-white/10 backdrop-blur-md border border-white/50 dark:border-white/10 font-bold text-lg text-zinc-700 dark:text-white hover:bg-white/80 dark:hover:bg-white/20 transition-all shadow-lg"

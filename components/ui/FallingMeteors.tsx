@@ -3,6 +3,7 @@
 import { useEffect, useState, memo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { useAssessment } from "../providers/AssessmentProvider";
 
 interface Meteor {
     id: number;
@@ -70,6 +71,7 @@ const MeteorItem = memo(({ meteor, onComplete }: { meteor: Meteor; onComplete: (
 MeteorItem.displayName = "MeteorItem";
 
 export default function FallingMeteors() {
+    const { isAssessmentOpen } = useAssessment();
     const [meteors, setMeteors] = useState<Meteor[]>([]);
 
     const removeMeteor = useCallback((id: number) => {
@@ -77,77 +79,86 @@ export default function FallingMeteors() {
     }, []);
 
     useEffect(() => {
-        const checkMeteorShower = () => {
-            const now = Date.now();
-            const lastTriggerTime = localStorage.getItem("lastMeteorTime");
+        let lastSpawnTime = Date.now();
+        let animationFrameId: number;
 
-            // Should match interval cycle roughly (e.g., 6s)
-            const timeSinceLast = lastTriggerTime ? now - parseInt(lastTriggerTime, 10) : Infinity;
-
-            if (timeSinceLast < 10000) return;
-
-            localStorage.setItem("lastMeteorTime", now.toString());
-
-            // 60% chance
-            if (Math.random() > 0.6) return;
-
-            const count = Math.floor(Math.random() * 3) + 1; // 1-3 meteors
-            const newMeteors: Meteor[] = [];
-
-            const images = [
-                "/condomItems/condom1.png",
-                "/condomItems/condom2.png",
-                "/condomItems/condom3.png",
-            ];
-
-            // Shuffle images for this batch to ensure no duplicates if count <= images.length
-            const shuffled = [...images].sort(() => 0.5 - Math.random());
-
-            for (let i = 0; i < count; i++) {
-                let startX = 0;
-                let drift = 0;
-                let attempts = 0;
-                let isValid = false;
-
-                // Attempt to find a non-overlapping position
-                while (!isValid && attempts < 10) {
-                    startX = Math.random() * 80 + 10; // 10-90vw (safer from edges)
-                    drift = Math.random() * 10 - 5; // -5vw to +5vw
-
-                    // Check if too close to existing meteors in this batch
-                    const tooClose = newMeteors.some((m) => Math.abs(m.x - startX) < 15); // Require 15vw gap
-                    if (!tooClose) {
-                        isValid = true;
-                    }
-                    attempts++;
-                }
-
-                // Fallback if no valid position found
-                if (!isValid) {
-                    startX = Math.random() * 80 + 10;
-                }
-
-                newMeteors.push({
-                    id: now + i,
-                    x: startX,
-                    drift: drift,
-                    delay: Math.random() * 5, // 0-5s delay
-                    duration: Math.random() * 4 + 4, // 4-8s duration
-                    imageSrc: shuffled[i],
-                    rotation: Math.random() * 360,
-                    scale: Math.random() * 0.4 + 0.6,
-                });
+        const loop = () => {
+            if (document.hidden || isAssessmentOpen) {
+                // Determine if we should pause spawning or just skip this frame
+                // For simplicity, just update lastSpawnTime to "now" so we don't build up a debt
+                lastSpawnTime = Date.now();
+                animationFrameId = requestAnimationFrame(loop);
+                return;
             }
 
-            // Append new meteors instead of replacing, to allow overlap
-            setMeteors((prev) => [...prev, ...newMeteors]);
+            const now = Date.now();
+            if (now - lastSpawnTime > 2500) { // Check every 2.5 seconds
+                lastSpawnTime = now;
+
+                // 75% chance to skip spawning
+                if (Math.random() > 0.75) {
+                    animationFrameId = requestAnimationFrame(loop);
+                    return;
+                }
+
+                const count = Math.floor(Math.random() * 2) + 1; // 1-2 meteors
+                const newMeteors: Meteor[] = [];
+
+                const images = [
+                    "/condomItems/condom1.png",
+                    "/condomItems/condom2.png",
+                    "/condomItems/condom3.png",
+                ];
+
+                const shuffled = [...images].sort(() => 0.5 - Math.random());
+
+                for (let i = 0; i < count; i++) {
+                    let startX = 0;
+                    let drift = 0;
+                    let attempts = 0;
+                    let isValid = false;
+
+                    // Attempt to find a non-overlapping position - simple check against existing meteors state is hard inside loop without ref/dependency
+                    // So we just check against *new* meteors in this batch
+                    while (!isValid && attempts < 10) {
+                        startX = Math.random() * 80 + 10; // 10-90vw
+                        drift = Math.random() * 10 - 5; // -5vw to +5vw
+
+                        const tooClose = newMeteors.some((m) => Math.abs(m.x - startX) < 15);
+                        if (!tooClose) {
+                            isValid = true;
+                        }
+                        attempts++;
+                    }
+
+                    if (!isValid) {
+                        startX = Math.random() * 80 + 10;
+                    }
+
+                    newMeteors.push({
+                        id: now + i,
+                        x: startX,
+                        drift: drift,
+                        delay: Math.random() * 5,
+                        duration: Math.random() * 4 + 4,
+                        imageSrc: shuffled[i % shuffled.length],
+                        rotation: Math.random() * 360,
+                        scale: Math.random() * 0.4 + 0.6,
+                    });
+                }
+
+                setMeteors((prev) => [...prev, ...newMeteors]);
+            }
+
+            animationFrameId = requestAnimationFrame(loop);
         };
 
-        const interval = setInterval(checkMeteorShower, 1000);
-        checkMeteorShower();
+        animationFrameId = requestAnimationFrame(loop);
 
-        return () => clearInterval(interval);
-    }, []);
+        return () => cancelAnimationFrame(animationFrameId);
+    }, [isAssessmentOpen]);
+
+    if (isAssessmentOpen) return null;
 
     return (
         <div className="fixed inset-0 pointer-events-none z-[40] overflow-hidden">

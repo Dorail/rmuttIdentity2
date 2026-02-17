@@ -138,10 +138,55 @@ export default function Navbar() {
                             </a>
                         </div>
 
-                        {/* Mobile Menu Button */}
-                        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2 text-zinc-900 dark:text-white z-[110] relative">
-                            {isOpen ? null : <Menu />}
-                        </button>
+                        {/* Mobile Menu Button - Minimalist Animated Toggle */}
+                        <motion.button
+                            onClick={() => setIsOpen(!isOpen)}
+                            className="md:hidden p-2 text-zinc-900 dark:text-white z-[110] relative focus:outline-none"
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.8 }}
+                            transition={{ duration: 0.2 }}
+                        >
+                            <svg width="23" height="23" viewBox="0 0 23 23">
+                                <motion.path
+                                    fill="transparent"
+                                    strokeWidth="3"
+                                    stroke="currentColor"
+                                    strokeLinecap="round"
+                                    variants={{
+                                        closed: { d: "M 2 2.5 L 20 2.5" },
+                                        open: { d: "M 3 16.5 L 17 2.5" }
+                                    }}
+                                    initial="closed"
+                                    animate={isOpen ? "open" : "closed"}
+                                />
+                                <motion.path
+                                    d="M 2 9.423 L 20 9.423"
+                                    fill="transparent"
+                                    strokeWidth="3"
+                                    stroke="currentColor"
+                                    strokeLinecap="round"
+                                    variants={{
+                                        closed: { opacity: 1 },
+                                        open: { opacity: 0 }
+                                    }}
+                                    initial="closed"
+                                    animate={isOpen ? "open" : "closed"}
+                                    transition={{ duration: 0.1 }}
+                                />
+                                <motion.path
+                                    fill="transparent"
+                                    strokeWidth="3"
+                                    stroke="currentColor"
+                                    strokeLinecap="round"
+                                    variants={{
+                                        closed: { d: "M 2 16.346 L 20 16.346" },
+                                        open: { d: "M 3 2.5 L 17 16.5" }
+                                    }}
+                                    initial="closed"
+                                    animate={isOpen ? "open" : "closed"}
+                                />
+                            </svg>
+                        </motion.button>
                     </div>
                 </div>
 
@@ -152,10 +197,10 @@ export default function Navbar() {
                 {isOpen && (
                     <motion.div
                         key="mobile-nav-overlay"
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.2 }}
+                        initial={{ y: "-100%" }}
+                        animate={{ y: 0 }}
+                        exit={{ y: "-100%" }}
+                        transition={{ type: "spring", damping: 25, stiffness: 200 }}
                         className="fixed inset-0 z-[105] bg-white/95 dark:bg-black/95 backdrop-blur-xl md:hidden flex flex-col"
                     >
                         {/* Mobile Header */}
@@ -175,20 +220,39 @@ export default function Navbar() {
                                     </div>
                                 </div>
                             </div>
-                            <button onClick={() => setIsOpen(false)} className="p-2 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
-                                <X className="w-6 h-6 text-zinc-900 dark:text-white" />
+                            <button
+                                onClick={() => setIsOpen(false)}
+                                className="p-2 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors group"
+                            >
+                                <motion.div
+                                    whileHover={{ rotate: 90 }}
+                                    whileTap={{ rotate: 90, scale: 0.9 }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    <X className="w-6 h-6 text-zinc-900 dark:text-white" />
+                                </motion.div>
                             </button>
                         </div>
 
                         {/* Mobile Content */}
-                        <div className="flex-1 overflow-y-auto p-6 space-y-8">
+                        <motion.div
+                            className="flex-1 overflow-y-auto p-6 space-y-8"
+                            initial="closed"
+                            animate="open"
+                            variants={{
+                                open: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
+                                closed: { transition: { staggerChildren: 0.05, staggerDirection: -1 } }
+                            }}
+                        >
 
-                            <Link href="/" onClick={() => setIsOpen(false)} className="text-2xl font-bold text-zinc-900 dark:text-white block">
-                                หน้าแรก
-                            </Link>
+                            <motion.div variants={{ open: { opacity: 1, y: 0 }, closed: { opacity: 0, y: 20 } }}>
+                                <Link href="/" onClick={() => setIsOpen(false)} className="text-2xl font-bold text-zinc-900 dark:text-white block">
+                                    หน้าแรก
+                                </Link>
+                            </motion.div>
 
                             {/* Section: Education */}
-                            <div className="space-y-4">
+                            <motion.div variants={{ open: { opacity: 1, y: 0 }, closed: { opacity: 0, y: 20 } }} className="space-y-4">
                                 <h3 className="text-sm font-bold text-zinc-400 uppercase tracking-wider">ความรู้เบื้องต้น (Basic Knowledge)</h3>
                                 <div className="grid gap-3">
                                     <Link href="/education/basics" onClick={() => setIsOpen(false)} className="flex items-center gap-3 p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-900/50">
@@ -200,10 +264,10 @@ export default function Navbar() {
                                         <span className="font-medium text-zinc-700 dark:text-zinc-200">ประเภทการคุมกำเนิด</span>
                                     </Link>
                                 </div>
-                            </div>
+                            </motion.div>
 
                             {/* Section: Contraception */}
-                            <div className="space-y-4">
+                            <motion.div variants={{ open: { opacity: 1, y: 0 }, closed: { opacity: 0, y: 20 } }} className="space-y-4">
                                 <h3 className="text-sm font-bold text-zinc-400 uppercase tracking-wider">การคุมกำเนิด (Contraception)</h3>
                                 <div className="grid grid-cols-2 gap-3">
                                     <Link href="/education/contraception/male" onClick={() => setIsOpen(false)} className="p-4 rounded-2xl bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-800 text-center">
@@ -215,10 +279,10 @@ export default function Navbar() {
                                         <span className="font-bold text-pink-700 dark:text-pink-300">สำหรับผู้หญิง</span>
                                     </Link>
                                 </div>
-                            </div>
+                            </motion.div>
 
                             {/* Section: Unplanned Pregnancy */}
-                            <div className="space-y-4">
+                            <motion.div variants={{ open: { opacity: 1, y: 0 }, closed: { opacity: 0, y: 20 } }} className="space-y-4">
                                 <h3 className="text-sm font-bold text-zinc-400 uppercase tracking-wider">ท้องไม่พร้อม (Unplanned Pregnancy)</h3>
                                 <div className="space-y-2">
                                     <Link href="/education/pregnancy/risks" onClick={() => setIsOpen(false)} className="flex items-center justify-between p-3 rounded-2xl hover:bg-zinc-50 dark:hover:bg-zinc-900/50 border-b border-zinc-100 dark:border-zinc-800">
@@ -234,15 +298,15 @@ export default function Navbar() {
                                         <ChevronDown className="-rotate-90 w-4 h-4 text-zinc-400" />
                                     </Link>
                                 </div>
-                            </div>
+                            </motion.div>
 
-                            <div className="pt-8 pb-10">
+                            <motion.div variants={{ open: { opacity: 1, y: 0 }, closed: { opacity: 0, y: 20 } }} className="pt-8 pb-10">
                                 <a href="/#assessment" onClick={() => setIsOpen(false)} className="block w-full py-4 rounded-2xl bg-gradient-to-r from-teal-500 to-emerald-500 text-white font-bold text-center text-lg shadow-lg shadow-teal-500/30">
                                     ทำแบบประเมินความเสี่ยง
                                 </a>
-                            </div>
+                            </motion.div>
 
-                        </div>
+                        </motion.div>
                     </motion.div>
                 )}
             </AnimatePresence>

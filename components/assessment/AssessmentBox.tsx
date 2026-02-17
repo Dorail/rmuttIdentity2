@@ -99,7 +99,7 @@ export default function AssessmentBox({ onClose }: AssessmentBoxProps) {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[110] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
         >
-            <div className="absolute inset-0" onClick={onClose}></div>
+            <div className="absolute inset-0"></div>
             <motion.div
                 initial={{ scale: 0.9, y: 20 }}
                 animate={{ scale: 1, y: 0 }}
@@ -132,7 +132,17 @@ export default function AssessmentBox({ onClose }: AssessmentBoxProps) {
                 </div>
 
                 {/* Content Area */}
-                <div className={`flex-1 min-h-0 overflow-x-hidden p-4 space-y-4 scroll-smooth overflow-y-auto bg-zinc-50 dark:bg-zinc-950/50 overscroll-contain touch-pan-y`} ref={scrollRef}>
+                <div
+                    className={`flex-1 min-h-0 overflow-x-hidden p-4 space-y-4 scroll-smooth overflow-y-auto bg-zinc-50 dark:bg-zinc-950/50 overscroll-contain touch-pan-y
+                        [&::-webkit-scrollbar]:w-1.5
+                        [&::-webkit-scrollbar-track]:bg-transparent
+                        [&::-webkit-scrollbar-thumb]:bg-zinc-300
+                        dark:[&::-webkit-scrollbar-thumb]:bg-zinc-700
+                        [&::-webkit-scrollbar-thumb]:rounded-full
+                        hover:[&::-webkit-scrollbar-thumb]:bg-zinc-400
+                        dark:hover:[&::-webkit-scrollbar-thumb]:bg-zinc-600`}
+                    ref={scrollRef}
+                >
                     {!started ? (
                         <div className="flex flex-col items-center justify-center h-full space-y-6 py-8 text-center px-4">
                             <motion.div
