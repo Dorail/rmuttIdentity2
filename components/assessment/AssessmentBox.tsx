@@ -26,9 +26,15 @@ export default function AssessmentBox({ onClose }: AssessmentBoxProps) {
     // Auto-scroll to bottom of chat
     useEffect(() => {
         if (scrollRef.current) {
-            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+            if (finished) {
+                // Scroll to top when finished
+                scrollRef.current.scrollTop = 0;
+            } else {
+                // Scroll to bottom during chat
+                scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+            }
         }
-    }, [chatHistory, isTyping, started, gender]);
+    }, [chatHistory, isTyping, started, gender, finished]);
 
     const currentQuestion = activeQuestions[currentQuestionIndex];
 
@@ -91,14 +97,14 @@ export default function AssessmentBox({ onClose }: AssessmentBoxProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+            className="fixed inset-0 z-[110] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
         >
             <div className="absolute inset-0" onClick={onClose}></div>
             <motion.div
                 initial={{ scale: 0.9, y: 20 }}
                 animate={{ scale: 1, y: 0 }}
                 exit={{ scale: 0.9, y: 20 }}
-                className="w-full max-w-md bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden shadow-2xl flex flex-col h-[600px] max-h-[85dvh] relative z-10 m-auto"
+                className={`w-full max-w-md bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden shadow-2xl flex flex-col ${finished ? 'h-auto max-h-[85dvh]' : 'h-[600px] max-h-[85dvh]'} relative z-10 m-auto`}
             >
                 {/* Header */}
                 <div className="bg-white dark:bg-zinc-900 p-4 border-b border-zinc-100 dark:border-zinc-800 flex items-center justify-between shrink-0 z-50 relative">
@@ -126,7 +132,7 @@ export default function AssessmentBox({ onClose }: AssessmentBoxProps) {
                 </div>
 
                 {/* Content Area */}
-                <div className={`flex-1 overflow-x-hidden p-4 space-y-4 scroll-smooth ${finished ? 'overflow-y-hidden flex items-center justify-center' : 'overflow-y-auto bg-zinc-50 dark:bg-zinc-950/50'}`} ref={scrollRef}>
+                <div className={`flex-1 min-h-0 overflow-x-hidden p-4 space-y-4 scroll-smooth overflow-y-auto bg-zinc-50 dark:bg-zinc-950/50 overscroll-contain touch-pan-y`} ref={scrollRef}>
                     {!started ? (
                         <div className="flex flex-col items-center justify-center h-full space-y-6 py-8 text-center px-4">
                             <motion.div

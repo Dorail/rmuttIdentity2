@@ -1,4 +1,4 @@
-import { QrCode } from 'lucide-react';
+import { QrCode, MessageCircle } from 'lucide-react';
 
 type ResultCardProps = {
     score: number;
@@ -13,20 +13,20 @@ export default function ResultCard({ score, onReset }: ResultCardProps) {
 
     // Scoring Logic
     if (score <= 5) {
-        status = "ควรติดตาม";
-        description = "คุณมีความเสี่ยงต่ำ ถือว่ามีความรู้ความเข้าใจดีครับ แต่ก็อย่าประมาท! สามารถสแกน QR Code เข้าร่วม OpenChat (Line) เพื่อพูดคุยแลกเปลี่ยนประสบการณ์กับเพื่อนๆ ได้เลยครับ";
-        colorClass = "text-green-600 dark:text-green-400";
-        bgClass = "bg-green-50 dark:bg-green-900/10 border-green-200 dark:border-green-800";
+        status = "ยอดเยี่ยมมากครับ! 🛡️";
+        description = "คุณมีความรู้ความเข้าใจเรื่องการป้องกันดีมากครับ ขอให้รักษามาตรฐานนี้ต่อไปนะ! แต่ถ้ามีข้อสงสัยหรืออยากแชร์ประสบการณ์ดีๆ ก็สแกน QR Code เข้ามาคุยกันใน OpenChat ได้เลยครับ";
+        colorClass = "text-emerald-600 dark:text-emerald-400";
+        bgClass = "bg-emerald-50 dark:bg-emerald-900/10 border-emerald-200 dark:border-emerald-800";
     } else if (score <= 10) {
-        status = "ควรติดตามอย่างใกล้ชิด";
-        description = "คุณมีความเสี่ยงปานกลาง ควรเพิ่มความระมัดระวัง แนะนำให้สแกน QR Code เข้าร่วม OpenChat (Line) เพื่อปรึกษาพี่ๆ และผู้เชี่ยวชาญได้ตลอดเวลาครับ";
-        colorClass = "text-yellow-600 dark:text-yellow-400";
-        bgClass = "bg-yellow-50 dark:bg-yellow-900/10 border-yellow-200 dark:border-yellow-800";
+        status = "ระวังอีกนิดนะครับ! ⚠️";
+        description = "มีความเสี่ยงปานกลางครับ อาจจะมีบางจุดที่เผลอละเลยไปบ้าง ไม่ต้องกังวลนะ ลองเข้ามาปรึกษาพี่ๆ ใน OpenChat ดูไหมครับ มีคำแนะนำดีๆ และเพื่อนๆ รอซัพพอร์ตเพียบเลย";
+        colorClass = "text-amber-600 dark:text-amber-400";
+        bgClass = "bg-amber-50 dark:bg-amber-900/10 border-amber-200 dark:border-amber-800";
     } else {
-        status = "ควรติดตามเร่งด่วน";
-        description = "คุณมีความเสี่ยงสูง อาจมีความเข้าใจคลาดเคลื่อนบางอย่าง แนะนำให้รีบสแกน QR Code เข้าร่วม OpenChat (Line) เพื่อปรึกษาเจ้าหน้าที่แบบส่วนตัวและเร่งด่วนครับ";
-        colorClass = "text-red-600 dark:text-red-400";
-        bgClass = "bg-red-50 dark:bg-red-900/10 border-red-200 dark:border-red-800";
+        status = "ต้องดูแลเป็นพิเศษนะครับ 🚨";
+        description = "มีความเสี่ยงสูงครับ อาจจะมีความเข้าใจที่คลาดเคลื่อนไปบ้าง แต่อย่าเพิ่งตกใจไปนะ อยากให้รีบเข้ามาคุยกับพวกเราใน OpenChat เลยครับ มีผู้เชี่ยวชาญพร้อมให้คำปรึกษาแบบส่วนตัวและเป็นกันเองสุดๆ ครับ";
+        colorClass = "text-rose-600 dark:text-rose-400";
+        bgClass = "bg-rose-50 dark:bg-rose-900/10 border-rose-200 dark:border-rose-800";
     }
 
     return (
@@ -36,13 +36,30 @@ export default function ResultCard({ score, onReset }: ResultCardProps) {
                 <p className="text-sm md:text-base text-zinc-600 dark:text-zinc-300">{description}</p>
             </div>
 
-            <div className="p-3 md:p-4 bg-white dark:bg-black rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-sm inline-block">
-                {/* Placeholder for QR Code */}
-                <div className="w-32 h-32 md:w-48 md:h-48 bg-zinc-100 dark:bg-zinc-800 rounded-xl flex items-center justify-center text-zinc-400">
-                    <div className="text-center space-y-2">
-                        <QrCode className="w-10 h-10 md:w-12 md:h-12 mx-auto" />
-                        <span className="text-[10px] md:text-xs block">QR Code</span>
+            <div className="flex flex-col items-center justify-center gap-6">
+                <div className="p-3 bg-white dark:bg-black rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-sm">
+                    {/* Placeholder for QR Code */}
+                    <div className="w-32 h-32 md:w-40 md:h-40 bg-zinc-100 dark:bg-zinc-800 rounded-xl flex items-center justify-center text-zinc-400">
+                        <div className="text-center space-y-2">
+                            <QrCode className="w-10 h-10 md:w-12 md:h-12 mx-auto" />
+                            <span className="text-[10px] md:text-xs block">QR Code</span>
+                        </div>
                     </div>
+                </div>
+
+                <div className="flex flex-col gap-3 w-full">
+                    <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+                        สแกน หรือ กดปุ่มด้านล่าง
+                    </p>
+                    <a
+                        href="https://line.me/ti/p/@safesexsafemind" // Replace with actual Line URL
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#06C755] hover:bg-[#05b64d] text-white font-bold transition-all shadow-lg shadow-green-500/20 active:scale-95"
+                    >
+                        <MessageCircle className="w-5 h-5" />
+                        <span>แอดไลน์ (OpenChat)</span>
+                    </a>
                 </div>
             </div>
 

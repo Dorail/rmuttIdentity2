@@ -7,7 +7,7 @@ import GlobalAssessment from "@/components/layout/GlobalAssessment";
 import FallingMeteors from "@/components/ui/FallingMeteors";
 
 export const metadata: Metadata = {
-  title: "SafeSexSafeMind - การให้ความรู้เรื่องการตั้งครรภ์ไม่พร้อมสำหรับนักศึกษา",
+  title: "SafeSexSafeMind",
   description: "แพลตฟอร์มให้ความรู้เชิงลึกเกี่ยวกับการตั้งครรภ์ไม่พร้อม การคุมกำเนิด และเพศศึกษาที่ถูกต้อง เหมาะสำหรับนักศึกษาและวัยรุ่น เพื่อการวางแผนชีวิตและการตัดสินใจที่มั่นใจ",
   icons: {
     icon: [
