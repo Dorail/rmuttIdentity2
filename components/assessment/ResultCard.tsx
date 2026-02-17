@@ -52,7 +52,7 @@ export default function ResultCard({ score, onReset }: ResultCardProps) {
                         สแกน หรือ กดปุ่มด้านล่าง
                     </p>
                     <a
-                        href="https://line.me/ti/p/@safesexsafemind" // Replace with actual Line URL
+                        href="https://line.me" // Replace with actual Line URL
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#06C755] hover:bg-[#05b64d] text-white font-bold transition-all shadow-lg shadow-green-500/20 active:scale-95"
