@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, AlertCircle, Phone, Heart, Users, CheckCircle, ChevronDown } from 'lucide-react';
 import { useRef, useState } from 'react';
+import BrandTicker from '../ui/BrandTicker';
 
 export default function EducationContent() {
     const containerVariants = {
@@ -22,6 +23,9 @@ export default function EducationContent() {
 
     return (
         <section id="education" className="space-y-24 py-12">
+
+
+            <BrandTicker />
 
             {/* Intro Section */}
             <motion.div
