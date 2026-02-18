@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, Variants } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import ThemeToggle from '../ui/ThemeToggle';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -49,11 +50,11 @@ export default function Navbar() {
                             <div className="flex flex-col leading-none">
                                 <span className={`block font-black tracking-tight text-lg transition-transform group-hover:translate-x-1 duration-300`}>
                                     <span className={`transition-colors ${isScrolled ? 'text-teal-600 dark:text-teal-400' : 'text-zinc-900 dark:text-white'}`}>Safe</span>
-                                    <span className={`transition-colors ${isScrolled ? 'text-zinc-900 dark:text-white' : 'text-zinc-900 dark:text-white'}`}>Sex</span>
+                                    <span className={`transition-colors ${isScrolled ? 'text-zinc-500 dark:text-white' : 'text-zinc-900 dark:text-white'}`}>Sex</span>
                                 </span>
                                 <span className={`block pl-4 font-black tracking-tight text-lg transition-transform group-hover:translate-x-1 duration-300 delay-75`}>
                                     <span className={`transition-colors ${isScrolled ? 'text-teal-600 dark:text-teal-400' : 'text-zinc-900 dark:text-white'}`}>Safe</span>
-                                    <span className={`transition-colors ${isScrolled ? 'text-zinc-900 dark:text-white' : 'text-zinc-900 dark:text-white'}`}>Mind</span>
+                                    <span className={`transition-colors ${isScrolled ? 'text-zinc-500 dark:text-white' : 'text-zinc-900 dark:text-white'}`}>Mind</span>
                                 </span>
                             </div>
                         </Link>
@@ -133,60 +134,65 @@ export default function Navbar() {
                                 </div>
                             </div>
 
+                            <ThemeToggle />
+
                             <a href="/#assessment" className="px-5 py-2.5 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-black font-semibold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-lg shadow-zinc-900/10 dark:shadow-white/10">
                                 ประเมินความเสี่ยง
                             </a>
                         </div>
 
                         {/* Mobile Menu Button - Minimalist Animated Toggle */}
-                        <motion.button
-                            onClick={() => setIsOpen(!isOpen)}
-                            className="md:hidden p-2 text-zinc-900 dark:text-white z-[110] relative focus:outline-none"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.8 }}
-                            transition={{ duration: 0.2 }}
-                        >
-                            <svg width="23" height="23" viewBox="0 0 23 23">
-                                <motion.path
-                                    fill="transparent"
-                                    strokeWidth="3"
-                                    stroke="currentColor"
-                                    strokeLinecap="round"
-                                    variants={{
-                                        closed: { d: "M 2 2.5 L 20 2.5" },
-                                        open: { d: "M 3 16.5 L 17 2.5" }
-                                    }}
-                                    initial="closed"
-                                    animate={isOpen ? "open" : "closed"}
-                                />
-                                <motion.path
-                                    d="M 2 9.423 L 20 9.423"
-                                    fill="transparent"
-                                    strokeWidth="3"
-                                    stroke="currentColor"
-                                    strokeLinecap="round"
-                                    variants={{
-                                        closed: { opacity: 1 },
-                                        open: { opacity: 0 }
-                                    }}
-                                    initial="closed"
-                                    animate={isOpen ? "open" : "closed"}
-                                    transition={{ duration: 0.1 }}
-                                />
-                                <motion.path
-                                    fill="transparent"
-                                    strokeWidth="3"
-                                    stroke="currentColor"
-                                    strokeLinecap="round"
-                                    variants={{
-                                        closed: { d: "M 2 16.346 L 20 16.346" },
-                                        open: { d: "M 3 2.5 L 17 16.5" }
-                                    }}
-                                    initial="closed"
-                                    animate={isOpen ? "open" : "closed"}
-                                />
-                            </svg>
-                        </motion.button>
+                        <div className="flex items-center gap-2 md:hidden">
+                            <ThemeToggle />
+                            <motion.button
+                                onClick={() => setIsOpen(!isOpen)}
+                                className="md:hidden p-2 text-zinc-900 dark:text-white z-[110] relative focus:outline-none"
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.8 }}
+                                transition={{ duration: 0.2 }}
+                            >
+                                <svg width="23" height="23" viewBox="0 0 23 23">
+                                    <motion.path
+                                        fill="transparent"
+                                        strokeWidth="3"
+                                        stroke="currentColor"
+                                        strokeLinecap="round"
+                                        variants={{
+                                            closed: { d: "M 2 2.5 L 20 2.5" },
+                                            open: { d: "M 3 16.5 L 17 2.5" }
+                                        }}
+                                        initial="closed"
+                                        animate={isOpen ? "open" : "closed"}
+                                    />
+                                    <motion.path
+                                        d="M 2 9.423 L 20 9.423"
+                                        fill="transparent"
+                                        strokeWidth="3"
+                                        stroke="currentColor"
+                                        strokeLinecap="round"
+                                        variants={{
+                                            closed: { opacity: 1 },
+                                            open: { opacity: 0 }
+                                        }}
+                                        initial="closed"
+                                        animate={isOpen ? "open" : "closed"}
+                                        transition={{ duration: 0.1 }}
+                                    />
+                                    <motion.path
+                                        fill="transparent"
+                                        strokeWidth="3"
+                                        stroke="currentColor"
+                                        strokeLinecap="round"
+                                        variants={{
+                                            closed: { d: "M 2 16.346 L 20 16.346" },
+                                            open: { d: "M 3 2.5 L 17 16.5" }
+                                        }}
+                                        initial="closed"
+                                        animate={isOpen ? "open" : "closed"}
+                                    />
+                                </svg>
+                            </motion.button>
+                        </div>
                     </div>
                 </div>
 
@@ -212,26 +218,29 @@ export default function Navbar() {
                                 <div className="flex flex-col leading-none">
                                     <div className="block font-black tracking-tight text-lg">
                                         <span className="text-teal-600 dark:text-teal-400">Safe</span>
-                                        <span className="text-zinc-900 dark:text-white">Sex</span>
+                                        <span className="text-zinc-500 dark:text-white">Sex</span>
                                     </div>
                                     <div className="block pl-4 font-black tracking-tight text-lg">
                                         <span className="text-teal-600 dark:text-teal-400">Safe</span>
-                                        <span className="text-zinc-900 dark:text-white">Mind</span>
+                                        <span className="text-zinc-500 dark:text-white">Mind</span>
                                     </div>
                                 </div>
                             </div>
-                            <button
-                                onClick={() => setIsOpen(false)}
-                                className="p-2 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors group"
-                            >
-                                <motion.div
-                                    whileHover={{ rotate: 90 }}
-                                    whileTap={{ rotate: 90, scale: 0.9 }}
-                                    transition={{ duration: 0.2 }}
+                            <div className="flex items-center gap-4">
+                                <ThemeToggle />
+                                <button
+                                    onClick={() => setIsOpen(false)}
+                                    className="p-2 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors group"
                                 >
-                                    <X className="w-6 h-6 text-zinc-900 dark:text-white" />
-                                </motion.div>
-                            </button>
+                                    <motion.div
+                                        whileHover={{ rotate: 90 }}
+                                        whileTap={{ rotate: 90, scale: 0.9 }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        <X className="w-6 h-6 text-zinc-900 dark:text-white" />
+                                    </motion.div>
+                                </button>
+                            </div>
                         </div>
 
                         {/* Mobile Content */}
@@ -309,7 +318,7 @@ export default function Navbar() {
                         </motion.div>
                     </motion.div>
                 )}
-            </AnimatePresence>
+            </AnimatePresence >
         </>
     );
 }

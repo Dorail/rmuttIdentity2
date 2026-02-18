@@ -6,6 +6,7 @@ import ScrollProgress from "@/components/ui/ScrollProgress";
 import GlobalAssessment from "@/components/layout/GlobalAssessment";
 import FallingMeteors from "@/components/ui/FallingMeteors";
 import { AssessmentProvider } from "../components/providers/AssessmentProvider";
+import { ThemeProvider } from "../components/providers/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "SafeSexSafeMind",
@@ -31,34 +32,36 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
       </head>
       <body
-        className="font-sans antialiased"
+        className="font-sans antialiased bg-white dark:bg-black text-zinc-900 dark:text-white transition-colors duration-300"
         style={{ fontFamily: '"Prompt", sans-serif' }}
       >
-        <AssessmentProvider>
-          <Navbar />
-          <ScrollProgress />
+        <ThemeProvider>
+          <AssessmentProvider>
+            <Navbar />
+            <ScrollProgress />
 
-          {/* Global Ambient Background */}
-          <div className="fixed inset-0 pointer-events-none -z-50 overflow-hidden">
-            <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-teal-500/10 rounded-full blur-[100px] animate-blob will-change-transform backface-hidden" />
-            <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px] animate-blob animation-delay-2000 will-change-transform backface-hidden" />
-            <div className="absolute bottom-0 left-1/3 w-[500px] h-[500px] bg-rose-500/10 rounded-full blur-[100px] animate-blob animation-delay-4000 will-change-transform backface-hidden" />
-          </div>
+            {/* Global Ambient Background */}
+            <div className="fixed inset-0 pointer-events-none -z-50 overflow-hidden">
+              <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-teal-500/10 rounded-full blur-[100px] animate-blob will-change-transform backface-hidden" />
+              <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px] animate-blob animation-delay-2000 will-change-transform backface-hidden" />
+              <div className="absolute bottom-0 left-1/3 w-[500px] h-[500px] bg-rose-500/10 rounded-full blur-[100px] animate-blob animation-delay-4000 will-change-transform backface-hidden" />
+            </div>
 
 
 
-          {children}
-          <GlobalAssessment />
-          <FallingMeteors />
-          <Footer />
-        </AssessmentProvider>
+            {children}
+            <GlobalAssessment />
+            <FallingMeteors />
+            <Footer />
+          </AssessmentProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

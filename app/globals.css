@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@config "../tailwind.config.ts";
 
 @theme {
   --font-sans: "Prompt", sans-serif;
@@ -15,21 +16,22 @@
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Default to Dark Mode values */
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Light Mode Override */
+.light {
+  --background: #ffffff;
+  --foreground: #171717;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: "Prompt", sans-serif;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 /* Prompt Font Util Classes */

@@ -44,13 +44,13 @@ const MeteorItem = memo(({ meteor, onComplete }: { meteor: Meteor; onComplete: (
         >
             {/* Wrapper for the image and the glow/trail effect */}
             <div className="relative group">
-                {/* Glow Effect - Optimized: Reduced blur radius slightly if needed via simpler class, but keeping visual same */}
-                <div className="absolute inset-0 bg-white/30 blur-xl rounded-full scale-150 animate-pulse" />
+                {/* Glow Effect - Adapted for Light/Dark Mode */}
+                <div className="absolute inset-0 bg-zinc-950/40 dark:bg-white/30 blur-xl rounded-full scale-150 animate-pulse transition-colors duration-300" />
 
-                {/* Trail/Comet Tail Effect */}
-                <div className="absolute top-1/2 left-1/2 w-[2px] h-[100px] -translate-x-1/2 -translate-y-full bg-gradient-to-t from-transparent via-white/40 to-transparent blur-[1px] rotate-[20deg] origin-bottom -z-10" />
+                {/* Trail/Comet Tail Effect - Adapted for Light/Dark Mode */}
+                <div className="absolute top-1/2 left-1/2 w-[2px] h-[150px] -translate-x-1/2 -translate-y-full bg-gradient-to-t from-transparent via-zinc-950/80 dark:via-white/40 to-transparent blur-[1px] rotate-[20deg] origin-bottom -z-10 transition-colors duration-300" />
 
-                <div className="relative w-16 h-16 md:w-24 md:h-24 drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]">
+                <div className="relative w-16 h-16 md:w-24 md:h-24 drop-shadow-[0_0_20px_rgba(0,0,0,0.6)] dark:drop-shadow-[0_0_15px_rgba(255,255,255,0.6)] transition-all duration-300">
                     <Image
                         src={meteor.imageSrc}
                         alt="Falling Item"
