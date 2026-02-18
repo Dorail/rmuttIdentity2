@@ -4,13 +4,14 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 const brands = [
-    { src: '/brands/brand1.png', alt: 'Brand 1', width: 200, height: 80 },
-    { src: '/brands/brand2.png', alt: 'Brand 2', width: 200, height: 80 },
-    { src: '/brands/brand3.png', alt: 'Brand 3', width: 200, height: 80 },
-    { src: '/brands/brand4.png', alt: 'Brand 4', width: 200, height: 80 },
-    { src: '/brands/brand5.png', alt: 'Brand 5', width: 200, height: 80 },
-    { src: '/brands/brand6.png', alt: 'Brand 6', width: 200, height: 80 },
-    { src: '/brands/brand7.png', alt: 'Brand 7', width: 200, height: 80 },
+    { src: '/brands/brands1.png', alt: 'Brand 1', width: 200, height: 80 },
+    { src: '/brands/brands2.png', alt: 'Brand 2', width: 200, height: 80 },
+    { src: '/brands/brands3.png', alt: 'Brand 3', width: 200, height: 80 },
+    { src: '/brands/brands4.png', alt: 'Brand 4', width: 200, height: 80 },
+    { src: '/brands/brands5.png', alt: 'Brand 5', width: 200, height: 80 },
+    { src: '/brands/brands6.png', alt: 'Brand 6', width: 200, height: 80 },
+    { src: '/brands/brands7.png', alt: 'Brand 7', width: 200, height: 80 },
+    { src: '/brands/brands8.png', alt: 'Brand 8', width: 200, height: 80 },
 ];
 
 export default function BrandTicker() {
